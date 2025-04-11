@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error - ProjectFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .error-container {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      border: 1px solid var(--border-color);
+    }
+
+    h1 {
+      color: var(--danger);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .back-button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: var(--primary-hover);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-container">
+    <h1>¡Ups! Algo salió mal</h1>
+    <p>
+      <%= mensaje || 'Ha ocurrido un error inesperado.' %>
+    </p>
+    <a href="/dashboard" class="back-button">Volver al Dashboard</a>
+  </div>
+</body>
+
+</html>

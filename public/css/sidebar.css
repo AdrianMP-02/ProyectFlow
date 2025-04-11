@@ -1,0 +1,79 @@
+@import 'variables.css';
+
+.sidebar {
+  grid-area: sidebar;
+  background: var(--bg-primary);
+  padding: 1.5rem;
+  border-right: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  z-index: 40;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  color: var(--text-gray);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.proyecto-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin: 0.35rem 0;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+
+.proyecto-item:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.proyecto-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--primary);
+  border-radius: 0 3px 3px 0;
+  transition: var(--transition);
+}
+
+.proyecto-item:hover::before {
+  height: 70%;
+}
+
+.nuevo-proyecto-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.nuevo-proyecto-btn:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}

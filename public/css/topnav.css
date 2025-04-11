@@ -1,0 +1,114 @@
+@import 'variables.css';
+
+.top-nav {
+  grid-area: header;
+  background: var(--bg-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  z-index: 50;
+  height: 60px;
+}
+
+.top-nav h2 {
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-size: 1.25rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.top-nav h2::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+/* Dropdown y contenido */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 220px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 100;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-content a {
+  transition: var(--transition);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--bg-secondary);
+}
+
+.dropdown-content a:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Menú de usuario */
+.user-menu {
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+}
+
+.user-menu:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.top-nav .logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.top-nav .logo-link h2 {
+  margin: 0;
+}

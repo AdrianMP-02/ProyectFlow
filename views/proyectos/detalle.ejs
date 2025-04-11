@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Proyecto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/proyectos/details.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/topnav.css">
+  <script src="/js/tareas/api.js" defer></script>
+  <script src="/js/proyectos/detalle.js" defer></script>
+  <script src="/js/proyectos/acciones.js" defer></script>
+  <script src="/js/proyectos/usuarios.js" defer></script>
+</head>
+
+<body>
+  <%- include('../partials/topnav') %>
+
+    <%- include('../partials/sidebar') %>
+
+      <main class="content" data-proyecto-id="<%= proyecto.id %>">
+        <div class="top-bar">
+          <h1>
+            <%= proyecto.nombre %>
+          </h1>
+          <div class="proyecto-estado">
+            <p>Estado:
+              <% if (rol==='admin' ) { %>
+                <select id="estadoProyecto" onchange="cambiarEstadoProyecto()">
+                  <option value="pendiente" <%=proyecto.estado==='pendiente' ? 'selected' : '' %>>Pendiente</option>
+                  <option value="en_progreso" <%=proyecto.estado==='en_progreso' ? 'selected' : '' %>>En Progreso
+                  </option>
+                  <option value="completado" <%=proyecto.estado==='completado' ? 'selected' : '' %>>Completado</option>
+                </select>
+                <% } else { %>
+                  <span class="estado-badge <%= proyecto.estado %>">
+                    <% if (proyecto.estado==='pendiente' ) { %>
+                      Pendiente
+                      <% } else if (proyecto.estado==='en_progreso' ) { %>
+                        En Progreso
+                        <% } else if (proyecto.estado==='completado' ) { %>
+                          Completado
+                          <% } else { %>
+                            <%= proyecto.estado %>
+                              <% } %>
+                  </span>
+                  <% } %>
+            </p>
+          </div>
+        </div>
+        <div class="tool-bar">
+          <button id="btnAnadirUsuario">+ Añadir Usuario</button>
+          <button onclick="window.location.href='/tareas/nueva?proyecto_id=<%= proyecto.id %>'">+ Nueva Tarea</button>
+        </div>
+        <div class="kanban-board">
+          <div class="kanban-column" data-estado="pendiente" ondragover="permitirSoltar(event)"
+            ondrop="soltarTarea(event, 'pendiente')">
+            <h3>Pendiente</h3>
+            <% tareas.filter(tarea=> tarea.estado === 'pendiente').forEach(function(tarea) { %>
+              <div class="tarea" data-id="<%= tarea.id %>" onclick="seleccionarTarea(event, <%= tarea.id %>)"
+                draggable="true" ondragstart="iniciarArrastre(event, <%= tarea.id %>)">
+                <h3>
+                  <%= tarea.titulo %>
+                </h3>
+
+                <!-- Mostrar responsable -->
+                <p class="tarea-responsable">
+                  <span class="user-icon">👤</span>
+                  <%= tarea.responsable_nombre %>
+                </p>
+
+                <!-- Fecha de vencimiento -->
+                <div class="fecha-vencimiento <%= (new Date(tarea.fecha_vencimiento) < new Date()) ? 'pasada' : '' %>">
+                  <%= tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'Sin fecha' %>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+          <div class="kanban-column" data-estado="en_progreso" ondragover="permitirSoltar(event)"
+            ondrop="soltarTarea(event, 'en_progreso')">
+            <h3>En Progreso</h3>
+            <% tareas.filter(tarea=> tarea.estado === 'en_progreso').forEach(function(tarea) { %>
+              <div class="tarea" data-id="<%= tarea.id %>" onclick="seleccionarTarea(event, <%= tarea.id %>)"
+                draggable="true" ondragstart="iniciarArrastre(event, <%= tarea.id %>)">
+                <h3>
+                  <%= tarea.titulo %>
+                </h3>
+
+                <!-- Mostrar responsable -->
+                <p class="tarea-responsable">
+                  <span class="user-icon">👤</span>
+                  <%= tarea.responsable_nombre %>
+                </p>
+
+                <!-- Fecha de vencimiento -->
+                <div class="fecha-vencimiento <%= (new Date(tarea.fecha_vencimiento) < new Date()) ? 'pasada' : '' %>">
+                  <%= tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'Sin fecha' %>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+          <div class="kanban-column" data-estado="revision_interna" ondragover="permitirSoltar(event)"
+            ondrop="soltarTarea(event, 'revision_interna')">
+            <h3>Revisión Interna</h3>
+            <% tareas.filter(tarea=> tarea.estado === 'revision_interna').forEach(function(tarea) { %>
+              <div class="tarea" data-id="<%= tarea.id %>" onclick="seleccionarTarea(event, <%= tarea.id %>)"
+                draggable="true" ondragstart="iniciarArrastre(event, <%= tarea.id %>)">
+                <h3>
+                  <%= tarea.titulo %>
+                </h3>
+
+                <!-- Mostrar responsable -->
+                <p class="tarea-responsable">
+                  <span class="user-icon">👤</span>
+                  <%= tarea.responsable_nombre %>
+                </p>
+
+                <!-- Fecha de vencimiento -->
+                <div class="fecha-vencimiento <%= (new Date(tarea.fecha_vencimiento) < new Date()) ? 'pasada' : '' %>">
+                  <%= tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'Sin fecha' %>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+          <div class="kanban-column" data-estado="revision_cliente" ondragover="permitirSoltar(event)"
+            ondrop="soltarTarea(event, 'revision_cliente')">
+            <h3>Revisión Cliente</h3>
+            <% tareas.filter(tarea=> tarea.estado === 'revision_cliente').forEach(function(tarea) { %>
+              <div class="tarea" data-id="<%= tarea.id %>" onclick="seleccionarTarea(event, <%= tarea.id %>)"
+                draggable="true" ondragstart="iniciarArrastre(event, <%= tarea.id %>)">
+                <h3>
+                  <%= tarea.titulo %>
+                </h3>
+
+                <!-- Mostrar responsable -->
+                <p class="tarea-responsable">
+                  <span class="user-icon">👤</span>
+                  <%= tarea.responsable_nombre %>
+                </p>
+
+                <!-- Fecha de vencimiento -->
+                <div class="fecha-vencimiento <%= (new Date(tarea.fecha_vencimiento) < new Date()) ? 'pasada' : '' %>">
+                  <%= tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'Sin fecha' %>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+          <div class="kanban-column" data-estado="finalizado" ondragover="permitirSoltar(event)"
+            ondrop="soltarTarea(event, 'finalizado')">
+            <h3>Finalizado</h3>
+            <% tareas.filter(tarea=> tarea.estado === 'finalizado').forEach(function(tarea) { %>
+              <div class="tarea" data-id="<%= tarea.id %>" onclick="seleccionarTarea(event, <%= tarea.id %>)"
+                draggable="true" ondragstart="iniciarArrastre(event, <%= tarea.id %>)">
+                <h3>
+                  <%= tarea.titulo %>
+                </h3>
+
+                <!-- Mostrar responsable -->
+                <p class="tarea-responsable">
+                  <span class="user-icon">👤</span>
+                  <%= tarea.responsable_nombre %>
+                </p>
+
+                <!-- Fecha de vencimiento -->
+                <div class="fecha-vencimiento <%= (new Date(tarea.fecha_vencimiento) < new Date()) ? 'pasada' : '' %>">
+                  <%= tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'Sin fecha' %>
+                </div>
+              </div>
+              <% }); %>
+          </div>
+        </div>
+      </main>
+
+      <div id="menuLateral" class="menu-lateral" data-tarea-id="">
+        <span class="cerrar" onclick="cerrarMenuLateral()">×</span>
+        <div id="detallesTarea"></div>
+        <div id="comentariosSection" class="comentarios-section"></div>
+      </div>
+
+      <!-- Modal para añadir usuarios al proyecto -->
+      <div id="anadirUsuarioModal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal" id="cerrarModalUsuario">&times;</span>
+          <h2>Añadir usuarios al proyecto</h2>
+          <div class="buscador-container">
+            <input type="text" id="buscarUsuario" placeholder="Buscar por nombre o email" class="busqueda-input">
+          </div>
+          <div class="resultados-busqueda" id="resultadosBusqueda">
+            <!-- Aquí se mostrarán los resultados de la búsqueda -->
+          </div>
+        </div>
+      </div>
+
+</body>
+
+</html>

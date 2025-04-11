@@ -1,0 +1,11 @@
+<aside class="sidebar">
+  <h3>Mis Proyectos</h3>
+  <% proyectos.forEach(function(proyecto) { %>
+    <div class="proyecto-item" onclick="window.location.href='/proyectos/<%= proyecto.id %>'">
+      <%= proyecto.nombre %>
+    </div>
+    <% }); %>
+      <button class="nuevo-proyecto-btn" onclick="window.location.href='/proyectos/nuevo'">
+        + Nuevo Proyecto
+      </button>
+</aside>

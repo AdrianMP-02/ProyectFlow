@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nueva Tarea - ProjectFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/tareas/nuevo.css">
+  <link rel="stylesheet" href="/css/topnav.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+
+<body>
+  <%- include('../partials/topnav') %>
+    <%- include('../partials/sidebar') %>
+
+      <main class="content">
+        <div class="container">
+          <h1>Nueva Tarea</h1>
+          <form action="/tareas" method="POST">
+            <input type="hidden" name="proyecto_id" value="<%= proyecto.id %>">
+
+            <div class="form-group">
+              <label for="titulo">Título de la Tarea:</label>
+              <input type="text" id="titulo" name="titulo" required>
+            </div>
+
+            <div class="form-group">
+              <label for="descripcion">Descripción:</label>
+              <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="responsable_id">Responsable:</label>
+              <select id="responsable_id" name="responsable_id" required>
+                <option value="">Seleccionar responsable</option>
+                <% usuariosProyecto.forEach(usuario=> { %>
+                  <option value="<%= usuario.id %>">
+                    <%= usuario.nombre %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Asignar a:</label>
+              <div class="usuarios-asignados">
+                <% usuariosProyecto.forEach(usuario=> { %>
+                  <div class="checkbox-item">
+                    <input type="checkbox" id="usuario_<%= usuario.id %>" name="usuarios_asignados[]"
+                      value="<%= usuario.id %>">
+                    <label for="usuario_<%= usuario.id %>">
+                      <%= usuario.nombre %>
+                    </label>
+                  </div>
+                  <% }); %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prioridad">Prioridad:</label>
+              <select id="prioridad" name="prioridad" required>
+                <option value="Alta">Alta</option>
+                <option value="Media" selected>Media</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+              <input type="date" id="fecha_vencimiento" name="fecha_vencimiento">
+            </div>
+
+            <div class="buttons">
+              <button type="button" onclick="window.location.href='/proyectos/<%= proyecto.id %>'">Cancelar</button>
+              <button type="submit" class="submit-btn">Crear Tarea</button>
+            </div>
+          </form>
+        </div>
+      </main>
+</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Proyectos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/home/home.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h1>ProjectFlow</h1>
+    </div>
+    <div class="nav-links">
+      <a href="#caracteristicas" class="nav-link">Características</a>
+      <a href="#soluciones" class="nav-link">Soluciones</a>
+      <div class="auth-buttons">
+        <a href="#" class="nav-link login-btn">Iniciar Sesión</a>
+        <a href="#" class="nav-link register-btn">Registrarse</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <h1 class="hero-title">Gestiona tus proyectos con facilidad</h1>
+    <p class="hero-subtitle">La plataforma más intuitiva para la gestión de proyectos</p>
+    <a href="#" class="cta-button">Comienza Gratis</a>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <h3>Gestión Simple</h3>
+      <p>Interfaz intuitiva y fácil de usar para todos los miembros del equipo</p>
+    </div>
+    <div class="feature-card">
+      <h3>Colaboración en Tiempo Real</h3>
+      <p>Trabaja con tu equipo en tiempo real desde cualquier lugar</p>
+    </div>
+    <div class="feature-card">
+      <h3>Análisis Detallado</h3>
+      <p>Obtén insights valiosos sobre el progreso de tus proyectos</p>
+    </div>
+  </section>
+
+  <section id="caracteristicas" class="caracteristicas-section">
+    <div class="section-header">
+      <h2>Características que impulsan tu productividad</h2>
+      <p>Descubre las herramientas que hacen que ProjectFlow sea la opción ideal para gestionar tus proyectos</p>
+    </div>
+
+    <div class="caracteristicas-grid">
+      <div class="caracteristica-item">
+        <div class="icon">📋</div>
+        <h3>Tableros Kanban personalizables</h3>
+        <p>Organiza tus tareas con tableros visuales que se adaptan a tu flujo de trabajo</p>
+      </div>
+
+      <div class="caracteristica-item">
+        <div class="icon">⏱️</div>
+        <h3>Seguimiento de tiempo</h3>
+        <p>Controla el tiempo invertido en cada tarea para optimizar la productividad del equipo</p>
+      </div>
+
+      <div class="caracteristica-item">
+        <div class="icon">📊</div>
+        <h3>Informes detallados</h3>
+        <p>Visualiza el progreso con gráficos intuitivos y métricas personalizables</p>
+      </div>
+
+      <div class="caracteristica-item">
+        <div class="icon">🔔</div>
+        <h3>Notificaciones inteligentes</h3>
+        <p>Mantente al día con alertas relevantes sobre tus proyectos y tareas pendientes</p>
+      </div>
+
+      <div class="caracteristica-item">
+        <div class="icon">🔄</div>
+        <h3>Automatización de procesos</h3>
+        <p>Automatiza tareas repetitivas y enfócate en lo que realmente importa</p>
+      </div>
+
+      <div class="caracteristica-item">
+        <div class="icon">📱</div>
+        <h3>Acceso multiplataforma</h3>
+        <p>Trabaja desde cualquier dispositivo con nuestra aplicación web y móvil</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="soluciones" class="soluciones-section">
+    <div class="section-header">
+      <h2>Soluciones para cada equipo</h2>
+      <p>ProjectFlow se adapta a las necesidades específicas de diferentes tipos de equipos</p>
+    </div>
+
+    <div class="soluciones-container">
+      <div class="solucion-card">
+        <h3>Desarrollo de Software</h3>
+        <p>Integración con GitHub, gestión de sprints y seguimiento de bugs para equipos de desarrollo ágil</p>
+        <ul>
+          <li>Control de versiones integrado</li>
+          <li>Planificación de sprints</li>
+          <li>Gestión de incidencias</li>
+        </ul>
+      </div>
+
+      <div class="solucion-card">
+        <h3>Marketing y Diseño</h3>
+        <p>Herramientas visuales para la gestión de campañas y flujos de trabajo creativos</p>
+        <ul>
+          <li>Calendarios de contenido</li>
+          <li>Revisión de diseños</li>
+          <li>Seguimiento de campañas</li>
+        </ul>
+      </div>
+
+      <div class="solucion-card">
+        <h3>Gestión de Proyectos</h3>
+        <p>Soluciones completas para Project Managers con seguimiento de presupuestos y recursos</p>
+        <ul>
+          <li>Diagramas de Gantt</li>
+          <li>Gestión de recursos</li>
+          <li>Control de presupuestos</li>
+        </ul>
+      </div>
+
+      <div class="solucion-card">
+        <h3>Startups y Emprendedores</h3>
+        <p>Soluciones ágiles y asequibles para equipos en crecimiento</p>
+        <ul>
+          <li>Plan gratuito para comenzar</li>
+          <li>Escalabilidad garantizada</li>
+          <li>Onboarding simplificado</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Login -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Bienvenido de nuevo</h2>
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" required placeholder="Tu contraseña">
+        </div>
+        <button type="submit" class="modal-button">Iniciar Sesión</button>
+      </form>
+      <div class="modal-footer">
+        <p>¿No tienes cuenta? <a href="#" id="switchToRegister">Crear cuenta</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Registro -->
+  <div id="registroModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Crear cuenta</h2>
+      <form action="/registro" method="POST">
+        <div class="form-group">
+          <label for="reg-nombre">Nombre completo</label>
+          <input type="text" id="reg-nombre" name="nombre" required placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" name="email" required placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Contraseña</label>
+          <input type="password" id="reg-password" name="password" required placeholder="Crea una contraseña segura">
+        </div>
+        <button type="submit" class="modal-button">Crear cuenta</button>
+      </form>
+      <div class="modal-footer">
+        <p>¿Ya tienes cuenta? <a href="#" id="switchToLogin">Iniciar sesión</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script para interactividad -->
+  <script>
+    // Gestionar el cambio de color de navbar al hacer scroll
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Añadir funcionalidad para menú móvil
+    document.addEventListener('DOMContentLoaded', function () {
+      // Crear el botón de menú móvil
+      const navLinks = document.querySelector('.nav-links');
+      const mobileBtn = document.createElement('button');
+      mobileBtn.classList.add('mobile-menu-btn');
+      mobileBtn.innerHTML = '☰';
+
+      // Insertarlo en el navbar
+      const navbar = document.querySelector('.navbar');
+      navbar.insertBefore(mobileBtn, navLinks);
+
+      // Agregar la funcionalidad de toggle
+      mobileBtn.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+      });
+
+      // Funcionalidad para modales de autenticación
+      const loginModal = document.getElementById('loginModal');
+      const registroModal = document.getElementById('registroModal');
+      const loginBtn = document.querySelector('.login-btn');
+      const registerBtn = document.querySelector('.register-btn');
+      const ctaButton = document.querySelector('.cta-button');
+      const closeBtns = document.querySelectorAll('.close-modal');
+      const switchToRegister = document.getElementById('switchToRegister');
+      const switchToLogin = document.getElementById('switchToLogin');
+
+      // Abrir modales
+      loginBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginModal.style.display = 'flex';
+      });
+
+      registerBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        registroModal.style.display = 'flex';
+      });
+
+      ctaButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        registroModal.style.display = 'flex';
+      });
+
+      // Cerrar modales
+      closeBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+          loginModal.style.display = 'none';
+          registroModal.style.display = 'none';
+        });
+      });
+
+      // Cerrar al hacer clic fuera del modal
+      window.addEventListener('click', function (e) {
+        if (e.target === loginModal) {
+          loginModal.style.display = 'none';
+        }
+        if (e.target === registroModal) {
+          registroModal.style.display = 'none';
+        }
+      });
+
+      // Cambiar entre modales
+      switchToRegister.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginModal.style.display = 'none';
+        registroModal.style.display = 'flex';
+      });
+
+      switchToLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        registroModal.style.display = 'none';
+        loginModal.style.display = 'flex';
+      });
+    });
+  </script>
+</body>
+
+</html>
