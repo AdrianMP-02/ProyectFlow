@@ -166,7 +166,7 @@
     <div class="modal-content">
       <span class="close-modal">&times;</span>
       <h2>Crear cuenta</h2>
-      <form action="/registro" method="POST">
+      <form action="/registro" method="POST" id="registroForm">
         <div class="form-group">
           <label for="reg-nombre">Nombre completo</label>
           <input type="text" id="reg-nombre" name="nombre" required placeholder="Tu nombre">
@@ -178,6 +178,12 @@
         <div class="form-group">
           <label for="reg-password">Contraseña</label>
           <input type="password" id="reg-password" name="password" required placeholder="Crea una contraseña segura">
+        </div>
+        <div class="form-group">
+          <label for="reg-confirmar-password">Confirmar contraseña</label>
+          <input type="password" id="reg-confirmar-password" name="confirmarPassword" required
+            placeholder="Repite tu contraseña">
+          <span id="password-error" class="error-message"></span>
         </div>
         <button type="submit" class="modal-button">Crear cuenta</button>
       </form>
