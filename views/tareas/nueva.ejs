@@ -46,17 +46,15 @@
 
             <div class="form-group">
               <label>Asignar a:</label>
-              <div class="usuarios-asignados">
-                <% usuariosProyecto.forEach(usuario=> { %>
-                  <div class="checkbox-item">
-                    <input type="checkbox" id="usuario_<%= usuario.id %>" name="usuarios_asignados[]"
-                      value="<%= usuario.id %>">
-                    <label for="usuario_<%= usuario.id %>">
-                      <%= usuario.nombre %>
-                    </label>
-                  </div>
-                  <% }); %>
+              <div class="buscador-usuarios">
+                <input type="text" id="buscador_usuarios" placeholder="Buscar por nombre o email..." autocomplete="off">
+                <div id="resultados_busqueda" class="resultados-busqueda"></div>
               </div>
+              <div id="usuarios_seleccionados" class="usuarios-seleccionados">
+                <!-- Aquí se mostrarán los usuarios seleccionados -->
+              </div>
+              <!-- Campo oculto para enviar los IDs de usuarios seleccionados -->
+              <input type="hidden" id="usuarios_asignados_ids" name="usuarios_asignados[]">
             </div>
 
             <div class="form-group">
@@ -80,6 +78,20 @@
           </form>
         </div>
       </main>
+
+      <script>
+        // Pasar datos de usuarios al script
+        window.usuariosProyecto = [
+      <% usuariosProyecto.forEach(usuario => { %>
+        {
+          id: "<%= usuario.id %>",
+          nombre: "<%= usuario.nombre %>",
+          email: "<%= usuario.email || '' %>"
+        },
+      <% }); %>
+    ];
+      </script>
+      <script src="/js/tareas/buscador.js"></script>
 </body>
 
 </html>
