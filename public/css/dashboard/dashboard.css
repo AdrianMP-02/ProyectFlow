@@ -115,42 +115,75 @@ body {
 
 .activity-item {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: 1rem;
-  padding: 0.75rem;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
-  transition: var(--transition);
+  transition: background-color 0.2s;
 }
 
 .activity-item:hover {
-  background-color: var(--bg-secondary);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.activity-item[data-type="creacion"] .activity-icon {
+  color: #4CAF50;
+  /* verde */
+}
+
+.activity-item[data-type="completado"] .activity-icon {
+  color: #2196F3;
+  /* azul */
+}
+
+.activity-item[data-type="asignacion"] .activity-icon {
+  color: #9C27B0;
+  /* púrpura */
+}
+
+.activity-item[data-type="comentario"] .activity-icon {
+  color: #00BCD4;
+  /* cian */
+}
+
+.activity-item[data-type="fecha"] .activity-icon {
+  color: #F44336;
+  /* rojo */
+}
+
+.activity-item[data-type="otro"] .activity-icon {
+  color: #607D8B;
+  /* gris azulado */
+}
+
+.activity-list {
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 .activity-icon {
-  background: var(--primary);
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  margin-right: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .activity-content {
-  flex: 1;
+  flex-grow: 1;
 }
 
 .activity-text {
-  font-size: 0.875rem;
+  margin: 0 0 4px 0;
+  font-size: 14px;
   color: var(--text-primary);
-  margin-bottom: 0.25rem;
 }
 
 .activity-time {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+  font-size: 12px;
+  color: #6c757d;
 }
 
 .task-item {

@@ -2,235 +2,272 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ProjectFlow</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/dashboard/dashboard.css">
-    <link rel="stylesheet" href="/css/topnav.css">
-    <link rel="stylesheet" href="/css/sidebar.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - ProjectFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/dashboard/dashboard.css">
+  <link rel="stylesheet" href="/css/topnav.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
 </head>
 
 <body>
-    <%- include('../partials/topnav') %>
+  <%- include('../partials/topnav') %>
 
-        <%- include('../partials/sidebar') %>
+    <%- include('../partials/sidebar') %>
 
-            <main class="content">
-                <% const dias=['Domingo', 'Lunes' , 'Martes' , 'Miércoles' , 'Jueves' , 'Viernes' , 'Sábado' ]; const
-                    meses=['Enero', 'Febrero' , 'Marzo' , 'Abril' , 'Mayo' , 'Junio' , 'Julio' , 'Agosto' , 'Septiembre'
-                    , 'Octubre' , 'Noviembre' , 'Diciembre' ]; const fecha=new Date(); const hora=fecha.getHours(); let
-                    saludo; if (hora>= 6 && hora < 12) { saludo='Buenos días' ; } else if (hora>= 12 && hora < 20) {
-                            saludo='Buenas tardes' ; } else { saludo='Buenas noches' ; } %>
+      <main class="content">
+        <% const dias=['Domingo', 'Lunes' , 'Martes' , 'Miércoles' , 'Jueves' , 'Viernes' , 'Sábado' ]; const
+          meses=['Enero', 'Febrero' , 'Marzo' , 'Abril' , 'Mayo' , 'Junio' , 'Julio' , 'Agosto' , 'Septiembre'
+          , 'Octubre' , 'Noviembre' , 'Diciembre' ]; const fecha=new Date(); const hora=fecha.getHours(); let saludo; if
+          (hora>= 6 && hora < 12) { saludo='Buenos días' ; } else if (hora>= 12 && hora < 20) { saludo='Buenas tardes' ;
+              } else { saludo='Buenas noches' ; } %>
 
-                            <div class="welcome-section">
-                                <p class="date-display">
-                                    <%= dias[fecha.getDay()] %>, <%= fecha.getDate() %> de <%= meses[fecha.getMonth()]
-                                                %>
-                                </p>
-                                <h1 class="greeting">
-                                    <%= saludo %>, <%= usuario.nombre %>
-                                </h1>
+              <div class="welcome-section">
+                <p class="date-display">
+                  <%= dias[fecha.getDay()] %>, <%= fecha.getDate() %> de <%= meses[fecha.getMonth()] %>
+                </p>
+                <h1 class="greeting">
+                  <%= saludo %>, <%= usuario.nombre %>
+                </h1>
+              </div>
+
+              <div class="dashboard-stats">
+                <div class="stat-card">
+                  <h3>Proyectos Activos</h3>
+                  <p>
+                    <%= proyectos.length %> proyectos
+                  </p>
+                </div>
+                <div class="stat-card">
+                  <h3>Tareas Pendientes</h3>
+                  <p>
+                    <%= estadisticas.tareas_pendientes %> tareas
+                  </p>
+                </div>
+                <div class="stat-card">
+                  <h3>Próximos Vencimientos</h3>
+                  <p>
+                    <%= estadisticas.proximos_vencimientos %> esta semana
+                  </p>
+                </div>
+              </div>
+
+              <div class="dashboard-grid">
+                <!-- Sección de Actividad Reciente -->
+                <div class="dashboard-section">
+                  <h2 class="section-title">Actividad Reciente</h2>
+                  <div class="activity-list">
+                    <% if (typeof actividades !=='undefined' && actividades && actividades.length>
+                      0) { %>
+                      <% actividades.forEach(function(actividad) { %>
+                        <div class="activity-item" data-type="<%= actividad.tipo || 'otro' %>">
+                          <div class="activity-icon">
+                            <% switch(actividad.tipo) { case 'creacion' : %>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                              </svg>
+                              <% break; case 'completado' : %>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                  stroke-width="2">
+                                  <path
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z">
+                                  </path>
+                                </svg>
+                                <% break; case 'asignacion' : %>
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                                    </path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                  </svg>
+                                  <% break; case 'comentario' : %>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                      stroke-width="2">
+                                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z">
+                                      </path>
+                                    </svg>
+                                    <% break; case 'fecha' : %>
+                                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6">
+                                        </line>
+                                        <line x1="8" y1="2" x2="8" y2="6">
+                                        </line>
+                                        <line x1="3" y1="10" x2="21" y2="10">
+                                        </line>
+                                      </svg>
+                                      <% break; default: %>
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                          stroke="currentColor" stroke-width="2">
+                                          <circle cx="12" cy="12" r="10">
+                                          </circle>
+                                          <path d="M12 16v-4"></path>
+                                          <path d="M12 8h.01"></path>
+                                        </svg>
+                                        <% } %>
+                          </div>
+                          <div class="activity-content">
+                            <p class="activity-text">
+                              <%- actividad.descripcion %>
+                            </p>
+                            <span class="activity-time">
+                              <%= actividad.fecha %>
+                            </span>
+                          </div>
+                        </div>
+                        <% }); %>
+                          <% } else { %>
+                            <div class="activity-empty">
+                              <p>No hay actividades recientes</p>
                             </div>
+                            <% } %>
+                  </div>
+                </div>
 
-                            <div class="dashboard-stats">
-                                <div class="stat-card">
-                                    <h3>Proyectos Activos</h3>
-                                    <p>
-                                        <%= proyectos.length %> proyectos
-                                    </p>
-                                </div>
-                                <div class="stat-card">
-                                    <h3>Tareas Pendientes</h3>
-                                    <p>
-                                        <%= estadisticas.tareas_pendientes %> tareas
-                                    </p>
-                                </div>
-                                <div class="stat-card">
-                                    <h3>Próximos Vencimientos</h3>
-                                    <p>
-                                        <%= estadisticas.proximos_vencimientos %> esta semana
-                                    </p>
-                                </div>
+                <!-- Sección de Tareas Prioritarias -->
+                <div class="dashboard-section">
+                  <h2 class="section-title">Tareas Prioritarias</h2>
+                  <div class="tasks-list">
+                    <% if (typeof tareasPrioritarias !=='undefined' && tareasPrioritarias && tareasPrioritarias.length>
+                      0) { %>
+                      <% tareasPrioritarias.forEach(function(tarea) { %>
+                        <div class="task-item">
+                          <input type="checkbox" class="task-checkbox">
+                          <div class="task-content">
+                            <p class="task-title">
+                              <%= tarea.titulo %>
+                            </p>
+                            <span class="task-due">Vence: <%= tarea.fechaVencimiento %>
+                            </span>
+                          </div>
+                          <span class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
+                            <%= tarea.prioridad %>
+                          </span>
+                        </div>
+                        <% }); %>
+                          <% } else { %>
+                            <div class="activity-empty">
+                              <p>No hay tareas prioritarias</p>
                             </div>
+                            <% } %>
+                  </div>
+                </div>
+              </div>
 
-                            <div class="dashboard-grid">
-                                <!-- Sección de Actividad Reciente -->
-                                <div class="dashboard-section">
-                                    <h2 class="section-title">Actividad Reciente</h2>
-                                    <div class="activity-list">
-                                        <% if (typeof actividades !=='undefined' && actividades && actividades.length>
-                                            0) { %>
-                                            <% actividades.forEach(function(actividad) { %>
-                                                <div class="activity-item">
-                                                    <div class="activity-icon">
-                                                        <svg width="16" height="16" viewBox="0 0 24 24"
-                                                            fill="currentColor">
-                                                            <path
-                                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                                                        </svg>
-                                                    </div>
-                                                    <div class="activity-content">
-                                                        <p class="activity-text">
-                                                            <%= actividad.descripcion %>
-                                                        </p>
-                                                        <span class="activity-time">
-                                                            <%= actividad.fecha %>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <% }); %>
-                                                    <% } else { %>
-                                                        <div class="activity-empty">
-                                                            <p>No hay actividades recientes</p>
-                                                        </div>
-                                                        <% } %>
-                                    </div>
-                                </div>
-
-                                <!-- Sección de Tareas Prioritarias -->
-                                <div class="dashboard-section">
-                                    <h2 class="section-title">Tareas Prioritarias</h2>
-                                    <div class="tasks-list">
-                                        <% if (typeof tareasPrioritarias !=='undefined' && tareasPrioritarias &&
-                                            tareasPrioritarias.length> 0) { %>
-                                            <% tareasPrioritarias.forEach(function(tarea) { %>
-                                                <div class="task-item">
-                                                    <input type="checkbox" class="task-checkbox">
-                                                    <div class="task-content">
-                                                        <p class="task-title">
-                                                            <%= tarea.titulo %>
-                                                        </p>
-                                                        <span class="task-due">Vence: <%= tarea.fechaVencimiento %>
-                                                        </span>
-                                                    </div>
-                                                    <span class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
-                                                        <%= tarea.prioridad %>
-                                                    </span>
-                                                </div>
-                                                <% }); %>
-                                                    <% } else { %>
-                                                        <div class="activity-empty">
-                                                            <p>No hay tareas prioritarias</p>
-                                                        </div>
-                                                        <% } %>
-                                    </div>
-                                </div>
+              <div class="kanban-board">
+                <h2 class="section-title">Mis Tareas</h2>
+                <div class="kanban-columns">
+                  <div class="kanban-column">
+                    <h3 class="column-title">Por Hacer</h3>
+                    <div class="column-content">
+                      <% if (typeof tareas !=='undefined' && tareas && tareas.length> 0) { %>
+                        <% tareas.filter(tarea=> tarea.estado ===
+                          'pendiente').forEach(function(tarea) {
+                          %>
+                          <div class="kanban-card">
+                            <div class="card-header">
+                              <span class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
+                                <%= tarea.prioridad %>
+                              </span>
                             </div>
+                            <h4 class="card-title">
+                              <%= tarea.titulo %>
+                            </h4>
+                            <p class="card-date">Vence: <%= tarea.fechaVencimiento %>
+                            </p>
+                          </div>
+                          <% }); %>
+                            <% } else { %>
+                              <div class="empty-column">
+                                <p>No hay tareas pendientes</p>
+                              </div>
+                              <% } %>
+                    </div>
+                  </div>
 
-                            <div class="kanban-board">
-                                <h2 class="section-title">Mis Tareas</h2>
-                                <div class="kanban-columns">
-                                    <div class="kanban-column">
-                                        <h3 class="column-title">Por Hacer</h3>
-                                        <div class="column-content">
-                                            <% if (typeof tareas !=='undefined' && tareas && tareas.length> 0) { %>
-                                                <% tareas.filter(tarea=> tarea.estado ===
-                                                    'pendiente').forEach(function(tarea) {
-                                                    %>
-                                                    <div class="kanban-card">
-                                                        <div class="card-header">
-                                                            <span
-                                                                class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
-                                                                <%= tarea.prioridad %>
-                                                            </span>
-                                                        </div>
-                                                        <h4 class="card-title">
-                                                            <%= tarea.titulo %>
-                                                        </h4>
-                                                        <p class="card-date">Vence: <%= tarea.fechaVencimiento %>
-                                                        </p>
-                                                    </div>
-                                                    <% }); %>
-                                                        <% } else { %>
-                                                            <div class="empty-column">
-                                                                <p>No hay tareas pendientes</p>
-                                                            </div>
-                                                            <% } %>
-                                        </div>
-                                    </div>
-
-                                    <div class="kanban-column">
-                                        <h3 class="column-title">En Progreso</h3>
-                                        <div class="column-content">
-                                            <% if (typeof tareas !=='undefined' && tareas && tareas.length> 0) { %>
-                                                <% tareas.filter(tarea=> tarea.estado ===
-                                                    'en_progreso').forEach(function(tarea)
-                                                    { %>
-                                                    <div class="kanban-card">
-                                                        <div class="card-header">
-                                                            <span
-                                                                class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
-                                                                <%= tarea.prioridad %>
-                                                            </span>
-                                                        </div>
-                                                        <h4 class="card-title">
-                                                            <%= tarea.titulo %>
-                                                        </h4>
-                                                        <p class="card-date">Vence: <%= tarea.fechaVencimiento %>
-                                                        </p>
-                                                    </div>
-                                                    <% }); %>
-                                                        <% } else { %>
-                                                            <div class="empty-column">
-                                                                <p>No hay tareas en progreso</p>
-                                                            </div>
-                                                            <% } %>
-                                        </div>
-                                    </div>
-
-                                    <div class="kanban-column">
-                                        <h3 class="column-title">Completadas</h3>
-                                        <div class="column-content">
-                                            <% if (typeof tareas !=='undefined' && Array.isArray(tareas) &&
-                                                tareas.length> 0) {
-                                                const tareasCompletadas = tareas.filter(tarea =>
-                                                tarea.estado === 'completado' || tarea.estado === 'finalizado');
-                                                if (tareasCompletadas.length > 0) { %>
-                                                <% tareasCompletadas .sort((a, b)=> new Date(b.fechaCompletado || 0) -
-                                                    new Date(a.fechaCompletado || 0))
-                                                    .slice(0, 3)
-                                                    .forEach(function(tarea) { %>
-                                                    <div class="kanban-card completed">
-                                                        <div class="card-header">
-                                                            <span
-                                                                class="priority-badge <%= tarea.prioridad ? tarea.prioridad.toLowerCase() : 'normal' %>">
-                                                                <%= tarea.prioridad || 'Normal' %>
-                                                            </span>
-                                                        </div>
-                                                        <h4 class="card-title">
-                                                            <%= tarea.titulo %>
-                                                        </h4>
-                                                        <p class="card-date">Completada
-                                                        </p>
-                                                        <% if (tarea.proyectoNombre) { %>
-                                                            <p class="card-project">Proyecto: <%= tarea.proyectoNombre
-                                                                    %>
-                                                            </p>
-                                                            <% } %>
-                                                    </div>
-                                                    <% }); %>
-                                                        <% if (tareasCompletadas.length> 3) { %>
-                                                            <div class="view-more-tasks">
-                                                                <a href="/tareas/completadas">Ver todas las
-                                                                    completadas</a>
-                                                            </div>
-                                                            <% } %>
-                                                                <% } else { %>
-                                                                    <div class="empty-column">
-                                                                        <p>No hay tareas completadas</p>
-                                                                    </div>
-                                                                    <% } %>
-                                                                        <% } else { %>
-                                                                            <div class="empty-column">
-                                                                                <p>No hay tareas disponibles</p>
-                                                                            </div>
-                                                                            <% } %>
-                                        </div>
-                                    </div>
-                                </div>
+                  <div class="kanban-column">
+                    <h3 class="column-title">En Progreso</h3>
+                    <div class="column-content">
+                      <% if (typeof tareas !=='undefined' && tareas && tareas.length> 0) { %>
+                        <% tareas.filter(tarea=> tarea.estado ===
+                          'en_progreso').forEach(function(tarea)
+                          { %>
+                          <div class="kanban-card">
+                            <div class="card-header">
+                              <span class="priority-badge <%= tarea.prioridad.toLowerCase() %>">
+                                <%= tarea.prioridad %>
+                              </span>
                             </div>
-            </main>
+                            <h4 class="card-title">
+                              <%= tarea.titulo %>
+                            </h4>
+                            <p class="card-date">Vence: <%= tarea.fechaVencimiento %>
+                            </p>
+                          </div>
+                          <% }); %>
+                            <% } else { %>
+                              <div class="empty-column">
+                                <p>No hay tareas en progreso</p>
+                              </div>
+                              <% } %>
+                    </div>
+                  </div>
+
+                  <div class="kanban-column">
+                    <h3 class="column-title">Completadas</h3>
+                    <div class="column-content">
+                      <% if (typeof tareas !=='undefined' && Array.isArray(tareas) && tareas.length> 0) {
+                        const tareasCompletadas = tareas.filter(tarea =>
+                        tarea.estado === 'completado' || tarea.estado === 'finalizado');
+                        if (tareasCompletadas.length > 0) { %>
+                        <% tareasCompletadas .sort((a, b)=> new Date(b.fechaCompletado || 0) -
+                          new Date(a.fechaCompletado || 0))
+                          .slice(0, 3)
+                          .forEach(function(tarea) { %>
+                          <div class="kanban-card completed">
+                            <div class="card-header">
+                              <span
+                                class="priority-badge <%= tarea.prioridad ? tarea.prioridad.toLowerCase() : 'normal' %>">
+                                <%= tarea.prioridad || 'Normal' %>
+                              </span>
+                            </div>
+                            <h4 class="card-title">
+                              <%= tarea.titulo %>
+                            </h4>
+                            <p class="card-date">Completada
+                            </p>
+                            <% if (tarea.proyectoNombre) { %>
+                              <p class="card-project">Proyecto: <%= tarea.proyectoNombre %>
+                              </p>
+                              <% } %>
+                          </div>
+                          <% }); %>
+                            <% if (tareasCompletadas.length> 3) { %>
+                              <div class="view-more-tasks">
+                                <a href="/tareas/completadas">Ver todas las
+                                  completadas</a>
+                              </div>
+                              <% } %>
+                                <% } else { %>
+                                  <div class="empty-column">
+                                    <p>No hay tareas completadas</p>
+                                  </div>
+                                  <% } %>
+                                    <% } else { %>
+                                      <div class="empty-column">
+                                        <p>No hay tareas disponibles</p>
+                                      </div>
+                                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </main>
 </body>
 
 </html>
