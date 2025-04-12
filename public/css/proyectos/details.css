@@ -467,10 +467,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .sidebar {
-    display: none;
-  }
-
   .menu-lateral {
     width: 90%;
   }

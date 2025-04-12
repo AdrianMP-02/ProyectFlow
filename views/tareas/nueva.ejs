@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/tareas/nuevo.css">
   <link rel="stylesheet" href="/css/topnav.css">
   <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/tareas/nuevo-responsive.css">
 </head>
 
 <body>
@@ -24,12 +25,12 @@
 
             <div class="form-group">
               <label for="titulo">Título de la Tarea:</label>
-              <input type="text" id="titulo" name="titulo" required>
+              <input type="text" id="titulo" name="titulo" required autocomplete="off">
             </div>
 
             <div class="form-group">
               <label for="descripcion">Descripción:</label>
-              <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+              <textarea id="descripcion" name="descripcion" rows="4" autocomplete="off"></textarea>
             </div>
 
             <div class="form-group">
@@ -92,6 +93,9 @@
     ];
       </script>
       <script src="/js/tareas/buscador.js"></script>
+
+      <%- include('../partials/sidebar-toggle') %>
+      <%- include('../partials/sidebar-script') %>
 </body>
 
 </html>
