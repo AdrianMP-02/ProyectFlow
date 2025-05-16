@@ -155,7 +155,7 @@ img {
 
 .register-btn {
   padding: 0.6rem 1.5rem;
-  color: white;
+  color: white !important;
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   border-radius: var(--radius-md);
   font-weight: 500;

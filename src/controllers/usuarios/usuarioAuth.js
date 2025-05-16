@@ -16,7 +16,8 @@ const login = async (req, res) => {
 
   // Validación básica
   if (!email || !password) {
-    return res.status(400).json({ error: 'Correo y contraseña son requeridos' });
+    // Renderiza la vista principal con el error para mostrarlo en el modal
+    return res.status(400).render('index', { loginError: 'Correo y contraseña son requeridos' });
   }
 
   try {
@@ -30,7 +31,7 @@ const login = async (req, res) => {
 
     // Verificar si existe el usuario
     if (users.length === 0) {
-      return res.status(401).json({ error: 'Credenciales inválidas' });
+      return res.status(401).render('index', { loginError: 'Credenciales invalidas' });
     }
 
     const user = users[0];
@@ -38,7 +39,7 @@ const login = async (req, res) => {
     // Verificar contraseña
     const validPassword = await compararPassword(password, user.password);
     if (!validPassword) {
-      return res.status(401).json({ error: 'Credenciales inválidas' });
+      return res.status(401).render('index', { loginError: 'Credenciales invalidas' });
     }
 
     // Establecer la sesión
@@ -50,7 +51,7 @@ const login = async (req, res) => {
     return res.redirect('/dashboard');
   } catch (error) {
     console.error('Error en login:', error);
-    return res.status(500).json({ error: 'Error del servidor al iniciar sesión' });
+    return res.status(500).render('index', { loginError: 'Error del servidor al iniciar sesión' });
   }
 };
 
