@@ -72,10 +72,6 @@ const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admi
     const rolesNormalizados = rolesPermitidos.map(r => r.trim().toLowerCase());
     const autorizado = Array.isArray(rolesNormalizados) && rolesNormalizados.includes(rol);
 
-    console.log('Rol obtenido:', rol);
-    console.log('Roles permitidos:', rolesNormalizados);
-    console.log('Autorizado:', autorizado);
-
     return {
       autorizado,
       rol,
