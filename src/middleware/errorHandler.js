@@ -20,7 +20,10 @@ const errorHandler = {
     }
 
     // Si es una petición AJAX, devolver JSON
-    if (req.xhr || req.headers.accept.includes('application/json')) {
+    if (
+      req.xhr ||
+      (req.headers.accept && req.headers.accept.includes('application/json'))
+    ) {
       return res.status(statusCode).json({
         error: true,
         message: err.message || 'Error del servidor'

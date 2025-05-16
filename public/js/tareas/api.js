@@ -231,19 +231,28 @@ function construirContenidoDetalleTarea(
 }
 
 /**
- * Construye la sección de información básica de la tarea
+ * Construye la sección de información básica de la tarea como desplegable
  * @param {Object} tarea - Datos de la tarea
  * @returns {string} - HTML generado
  */
 function construirSeccionInfoBasica(tarea) {
   return `
-    <h3>${tarea.titulo}</h3>
-    <div class="info-basica">
-      <p><strong>Descripción:</strong> ${tarea.descripcion || 'Sin descripción'}</p>
-      <p><strong>Responsable:</strong> ${tarea.responsable_nombre || 'No asignado'}</p>
-      <p><strong>Estado:</strong> ${formatearEstado(tarea.estado)}</p>
-      <p><strong>Prioridad:</strong> ${tarea.prioridad}</p>
-      <p><strong>Fecha de Vencimiento:</strong> ${tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'No definida'}</p>
+    <div class="seccion-desplegable" id="infoBasicaSection">
+      <div class="desplegable-header">
+        <h3>
+          <span class="icono-toggle">▼</span>
+          Información básica
+        </h3>
+      </div>
+      <div class="desplegable-content">
+        <div class="info-basica">
+          <p><strong>Descripción:</strong> ${tarea.descripcion || 'Sin descripción'}</p>
+          <p><strong>Responsable:</strong> ${tarea.responsable_nombre || 'No asignado'}</p>
+          <p><strong>Estado:</strong> ${formatearEstado(tarea.estado)}</p>
+          <p><strong>Prioridad:</strong> ${tarea.prioridad}</p>
+          <p><strong>Fecha de Vencimiento:</strong> ${tarea.fecha_vencimiento ? new Date(tarea.fecha_vencimiento).toLocaleDateString() : 'No definida'}</p>
+        </div>
+      </div>
     </div>
   `;
 }
