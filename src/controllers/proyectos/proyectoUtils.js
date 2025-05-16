@@ -57,7 +57,6 @@ const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admi
       'SELECT up.rol FROM usuario_proyecto up WHERE up.usuario_id = ? AND up.proyecto_id = ?',
       [usuarioId, proyectoId]
     );
-    console.log('Permisos:', permisos);
 
     if (permisos.length === 0) {
       return {
