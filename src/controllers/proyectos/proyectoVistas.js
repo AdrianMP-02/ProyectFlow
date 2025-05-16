@@ -46,7 +46,7 @@ const detalleProyecto = async (req, res, next) => {
     const { autorizado, rol, error } = await verificarPermisos(
       usuarioId,
       proyectoId,
-      ['admin', 'editor', 'miembro', 'observador']
+      ['admin', 'usuario']
     );
 
     if (!autorizado) {

@@ -37,13 +37,13 @@ const obtenerProyectos = async (usuarioId) => {
  * @param {Array<string>} rolesPermitidos - Roles permitidos para la acción
  * @returns {Promise<{autorizado: boolean, rol: string, error: AppError|null}>}
  */
-const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admin', 'editor']) => {
+const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admin', 'usuario']) => {
   try {
     const pool = await getPool();
-    
+
     // Verificar si el proyecto existe
     const [proyectos] = await pool.query('SELECT * FROM proyectos WHERE id = ?', [proyectoId]);
-    
+
     if (proyectos.length === 0) {
       return {
         autorizado: false,
@@ -51,13 +51,14 @@ const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admi
         error: new AppError('Proyecto no encontrado', 404)
       };
     }
-    
+
     // Verificar si el usuario pertenece al proyecto
     const [permisos] = await pool.query(
       'SELECT up.rol FROM usuario_proyecto up WHERE up.usuario_id = ? AND up.proyecto_id = ?',
       [usuarioId, proyectoId]
     );
-    
+    console.log('Permisos:', permisos);
+
     if (permisos.length === 0) {
       return {
         autorizado: false,
@@ -65,10 +66,16 @@ const verificarPermisos = async (usuarioId, proyectoId, rolesPermitidos = ['admi
         error: new AppError('No tienes acceso a este proyecto', 403)
       };
     }
-    
-    const rol = permisos[0].rol;
-    const autorizado = rolesPermitidos.includes(rol);
-    
+
+    // Normalizar el rol y los roles permitidos
+    const rol = permisos[0]?.rol?.trim().toLowerCase() || null;
+    const rolesNormalizados = rolesPermitidos.map(r => r.trim().toLowerCase());
+    const autorizado = Array.isArray(rolesNormalizados) && rolesNormalizados.includes(rol);
+
+    console.log('Rol obtenido:', rol);
+    console.log('Roles permitidos:', rolesNormalizados);
+    console.log('Autorizado:', autorizado);
+
     return {
       autorizado,
       rol,
